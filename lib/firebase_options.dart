@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -68,4 +62,27 @@ class DefaultFirebaseOptions {
     iosClientId: '806206844737-r1i0aqvh7138vkmqs2ep143eus349hl3.apps.googleusercontent.com',
     iosBundleId: 'com.example.cleanArchitectureRentalRoom',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBhzKbBkicM52-ebUEjF5dA9NIRDhYVMmo',
+    appId: '1:806206844737:web:66bd300073d44c5f7bbbc0',
+    messagingSenderId: '806206844737',
+    projectId: 'rental-room-1224b',
+    authDomain: 'rental-room-1224b.firebaseapp.com',
+    databaseURL: 'https://rental-room-1224b-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'rental-room-1224b.firebasestorage.app',
+    measurementId: 'G-76VQ67EBB5',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDIJnzLTfFQ1NFfndYzhIUKybVt3etGL3A',
+    appId: '1:806206844737:ios:bb42b5643a23eaa87bbbc0',
+    messagingSenderId: '806206844737',
+    projectId: 'rental-room-1224b',
+    databaseURL: 'https://rental-room-1224b-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'rental-room-1224b.firebasestorage.app',
+    iosClientId: '806206844737-r1i0aqvh7138vkmqs2ep143eus349hl3.apps.googleusercontent.com',
+    iosBundleId: 'com.example.cleanArchitectureRentalRoom',
+  );
+
 }

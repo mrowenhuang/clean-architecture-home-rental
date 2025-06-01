@@ -23,6 +23,15 @@ class UserModels extends UserEntities {
     );
   }
 
+  factory UserModels.fromEntity(UserEntities entity) {
+    return UserModels(
+      id: entity.id,
+      username: entity.username,
+      email: entity.email,
+      password: entity.password,
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory UserModels.fromJson(String source) =>

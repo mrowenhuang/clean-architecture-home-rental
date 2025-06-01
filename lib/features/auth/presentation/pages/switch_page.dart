@@ -1,3 +1,4 @@
+import 'package:clean_architecture_rental_room/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
 class SwitchPage extends StatelessWidget {
@@ -5,6 +6,6 @@ class SwitchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(body: SignupPage());
   }
 }

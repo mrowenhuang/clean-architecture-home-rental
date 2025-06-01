@@ -4,5 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthRepositories {
-  Future<Either<ServerFailure,UserCredential>> signupAuth(UserEntities user);
+  Stream<User?> get getCredentialAuth;
+  Future<Either<ServerFailure,Unit>> signupAuth(UserEntities user);
 }

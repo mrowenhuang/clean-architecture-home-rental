@@ -12,12 +12,14 @@ class AuthRepsitoriesImpl implements AuthRepositories {
   AuthRepsitoriesImpl(this._authRemoteDatasource);
 
   @override
-  Future<Either<ServerFailure, UserCredential>> signupAuth(
-    UserEntities user,
-  ) async {
+  // TODO: implement getCredentialAuth
+  Stream<User?> get getCredentialAuth => _authRemoteDatasource.getCredential;
+
+  @override
+  Future<Either<ServerFailure, Unit>> signupAuth(UserEntities user) async {
     try {
       final response = await _authRemoteDatasource.signupAuth(
-        user as UserModels,
+        UserModels.fromEntity(user),
       );
       return response.fold(
         (failure) {
