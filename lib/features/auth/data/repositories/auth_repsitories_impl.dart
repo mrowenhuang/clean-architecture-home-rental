@@ -12,7 +12,6 @@ class AuthRepsitoriesImpl implements AuthRepositories {
   AuthRepsitoriesImpl(this._authRemoteDatasource);
 
   @override
-  // TODO: implement getCredentialAuth
   Stream<User?> get getCredentialAuth => _authRemoteDatasource.getCredential;
 
   @override
@@ -27,6 +26,46 @@ class AuthRepsitoriesImpl implements AuthRepositories {
         },
         (response) {
           return right(response);
+        },
+      );
+    } catch (e) {
+      return left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, Unit>> singinAuth(UserEntities user) async {
+    try {
+      final response = await _authRemoteDatasource.singinAuth(
+        UserModels.fromEntity(user),
+      );
+
+      return response.fold(
+        (failure) {
+          return left(ServerFailure(message: failure.message));
+        },
+        (response) {
+          return right(unit);
+        },
+      );
+    } catch (e) {
+      return left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, UserEntities>> getUserAuth(String id) async {
+    try {
+      final response = await _authRemoteDatasource.getUserAuth(id);
+
+      return response.fold(
+        (failure) {
+          return left(ServerFailure(message: failure.message));
+        },
+        (response) {
+          return right(
+            UserModels.fromMap(response.data() as Map<String, dynamic>),
+          );
         },
       );
     } catch (e) {

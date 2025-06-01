@@ -6,4 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class AuthRepositories {
   Stream<User?> get getCredentialAuth;
   Future<Either<ServerFailure,Unit>> signupAuth(UserEntities user);
+  Future<Either<ServerFailure,Unit>> singinAuth(UserEntities user);
+  Future<Either<ServerFailure,UserEntities>> getUserAuth(String id);
 }

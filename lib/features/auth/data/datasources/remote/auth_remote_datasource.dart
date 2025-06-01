@@ -7,7 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class AuthRemoteDatasource {
   Stream<User?> get getCredential;
   Future<Either<ServerFailure, Unit>> signupAuth(UserModels user);
-  Future<Either<ServerFailure, Unit>> loginAuth(UserModels user);
+  Future<Either<ServerFailure, Unit>> singinAuth(UserModels user);
+  Future<Either<ServerFailure, DocumentSnapshot>> getUserAuth(String id);
 }
 
 class ImplAuthRemoteDatasource extends AuthRemoteDatasource {
@@ -28,7 +29,7 @@ class ImplAuthRemoteDatasource extends AuthRemoteDatasource {
             password: user.password.toString(),
           )
           .then((value) {
-            _firebaseFirestore.collection('user').add({
+            _firebaseFirestore.collection('user').doc(value.user!.uid).set({
               'id': value.user!.uid,
               'username': user.username,
               'email': user.email,
@@ -42,16 +43,27 @@ class ImplAuthRemoteDatasource extends AuthRemoteDatasource {
   }
 
   @override
-  Future<Either<ServerFailure, Unit>> loginAuth(UserModels user) async {
+  Future<Either<ServerFailure, Unit>> singinAuth(UserModels user) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: user.email.toString(),
         password: user.password.toString(),
       );
+
+      return right(unit!);
     } catch (e) {
       return left(ServerFailure(message: e.toString()));
     }
+  }
 
-    throw UnimplementedError();
+  @override
+  Future<Either<ServerFailure, DocumentSnapshot>> getUserAuth(String id) async {
+    try {
+      final response =
+          await _firebaseFirestore.collection('user').doc(id).get();
+      return right(response);
+    } catch (e) {
+      return left(ServerFailure(message: e.toString()));
+    }
   }
 }

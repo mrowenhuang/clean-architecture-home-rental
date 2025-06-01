@@ -14,3 +14,9 @@ final class SignupAuthEvent extends AuthEvent {
 
   const SignupAuthEvent({required this.user});
 }
+
+final class SinginAuthEvent extends AuthEvent {
+  final UserEntities user;
+
+  const SinginAuthEvent({required this.user});
+}
