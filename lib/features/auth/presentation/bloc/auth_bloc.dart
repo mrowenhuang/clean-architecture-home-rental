@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/domain/entities/user_entities.dart';
@@ -39,7 +40,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthSingupFailedState(message: failure.message));
       },
       (response) {
-        print(response);
       },
     );
   }
@@ -49,7 +49,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     await for (var data in _authGetCredential.call()) {
-      print(data);
       if (data != null) {
         final response = await _authGetUser.call(data.uid);
         await response.fold(
@@ -57,7 +56,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(AuthFailedState());
           },
           (response) async {
-            print(response);
             emit(AuthSuccessState(user: response));
           },
         );
@@ -71,12 +69,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SinginAuthEvent event,
     Emitter<AuthState> emit,
   ) async {
-    print('call dari singin');
     emit(AuthLoadingState());
     final response = await _authSignin.call(event.user);
-
     response.fold((failure) {
-      print(failure.message);
       emit(AuthSinginFailedState(message: failure.message));
     }, (response) {});
   }

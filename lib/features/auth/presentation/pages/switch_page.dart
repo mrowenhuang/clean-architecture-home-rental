@@ -14,17 +14,13 @@ class SwitchPage extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: context.read<AuthBloc>(),
       listener: (context, state) {
-        print(state);
         if (state is AuthSuccessState) {
-          AppNavigation.pushRemoveNavigation(context, HomePage());
-        } else {
-          AppNavigation.pushRemoveNavigation(context, LoginPage());
+          AppNavigation.pushRemoveNavigationUntil(context, HomePage());
+        } else if (state is AuthFailedState) {
+          AppNavigation.pushNavigation(context, LoginPage());
         }
       },
       builder: (context, state) {
-        if (state is AuthSuccessState) {
-          
-        }
         return Scaffold(body: Center(child: CupertinoActivityIndicator()));
       },
     );
