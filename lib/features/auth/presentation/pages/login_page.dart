@@ -168,6 +168,24 @@ class LoginPage extends StatelessWidget {
                             ),
                             child: Text("Login"),
                           ),
+                          SizedBox(height: 10),
+                          ElevatedButton.icon(
+                            label: Text("Google Login"),
+                            icon: Image.asset(
+                              'assets/logo/google.png',
+                              height: 25,
+                            ),
+                            onPressed: () {
+                              context.read<AuthBloc>().add(SinginAuthGoogle());
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              fixedSize: Size(size.width, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
                           Spacer(),
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:clean_architecture_rental_room/core/theme/app_theme.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/switch_page.dart';
+import 'package:clean_architecture_rental_room/features/rental/presentation/pages/home_page.dart';
 import 'package:clean_architecture_rental_room/firebase_options.dart';
 import 'package:clean_architecture_rental_room/injection.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Home Rental App',
         theme: AppTheme.appTheme(context),
-        home: const SwitchPage(),
+        home: const HomePage(),
       ),
     );
   }

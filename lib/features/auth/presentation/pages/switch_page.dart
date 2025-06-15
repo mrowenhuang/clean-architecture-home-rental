@@ -14,6 +14,7 @@ class SwitchPage extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: context.read<AuthBloc>(),
       listener: (context, state) {
+        print(state);
         if (state is AuthSuccessState) {
           AppNavigation.pushRemoveNavigationUntil(context, HomePage());
         } else if (state is AuthFailedState) {

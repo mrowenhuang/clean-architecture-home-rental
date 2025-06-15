@@ -72,4 +72,28 @@ class AuthRepsitoriesImpl implements AuthRepositories {
       return left(ServerFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<ServerFailure, UserEntities>> signinGoogle() async {
+    try {
+      final response = await _authRemoteDatasource.googleSignin();
+
+      return response.fold(
+        (failure) {
+          return left(failure);
+        },
+        (response) {
+          return right(
+            UserModels(
+              email: response.user?.email,
+              id: response.user?.uid,
+              username: response.user?.displayName,
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      return left(ServerFailure(message: e.toString()));
+    }
+  }
 }

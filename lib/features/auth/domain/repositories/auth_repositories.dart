@@ -8,4 +8,5 @@ abstract class AuthRepositories {
   Future<Either<ServerFailure,Unit>> signupAuth(UserEntities user);
   Future<Either<ServerFailure,Unit>> singinAuth(UserEntities user);
   Future<Either<ServerFailure,UserEntities>> getUserAuth(String id);
+  Future<Either<ServerFailure,UserEntities>> signinGoogle();
 }
