@@ -94,10 +94,10 @@ class HomePage extends StatelessWidget {
                   SizedBox(height: 20),
                   SizedBox(
                     height: size.height * .4,
-                    
+
                     child: ListView.builder(
                       itemCount: 5,
-                      2
+
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Padding(
