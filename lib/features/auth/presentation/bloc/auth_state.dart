@@ -16,7 +16,11 @@ final class AuthSuccessState extends AuthInitial {
   AuthSuccessState({this.user});
 }
 
-final class AuthFailedState extends AuthInitial {}
+final class AuthFailedState extends AuthInitial {
+  final String message;
+
+  AuthFailedState({required this.message});
+}
 
 final class AuthSingupFailedState extends AuthInitial {
   final String message;
@@ -29,3 +33,11 @@ final class AuthSinginFailedState extends AuthInitial {
 
   AuthSinginFailedState({required this.message});
 }
+
+final class AuthSignoutFailed extends AuthInitial {
+  final String message;
+
+  AuthSignoutFailed({required this.message});
+}
+
+final class AuthSignoutSuccess extends AuthInitial {}

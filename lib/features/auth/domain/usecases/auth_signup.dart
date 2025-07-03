@@ -8,7 +8,7 @@ class AuthSignup {
 
   AuthSignup(this._authRepositories);
 
-  Future<Either<ServerFailure, Unit>> call(UserEntities user) async {
+  Future<Either<ServerFailure, dynamic>> call(UserEntities user) async {
     return await _authRepositories.signupAuth(user);
   }
 }

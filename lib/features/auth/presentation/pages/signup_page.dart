@@ -3,6 +3,7 @@ import 'package:clean_architecture_rental_room/core/navigation/app_navigation.da
 import 'package:clean_architecture_rental_room/features/auth/domain/entities/user_entities.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/login_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,9 +33,7 @@ class SignupPage extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
                     title: 'Singup Failed',
-                    message: state.message.substring(
-                      state.message.indexOf(']') + 2,
-                    ),
+                    message: state.message,
                     contentType: ContentType.failure,
                   ),
                 ),
@@ -77,7 +76,7 @@ class SignupPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             child: TextFormField(
                               validator: (value) {
-                                if (value!.isNotEmpty && value.length <= 8) {
+                                if (value!.isNotEmpty && value.length <= 3) {
                                   return 'Name Need 8 Character';
                                 } else if (value.isEmpty) {
                                   return 'Please Fill The Name';

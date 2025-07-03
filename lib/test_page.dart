@@ -151,7 +151,3 @@ class TestPage extends StatelessWidget {
   }
 }
 
-
-void loginTest (String email, String password)  {
-
-}

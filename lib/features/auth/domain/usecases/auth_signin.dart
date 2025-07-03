@@ -8,7 +8,7 @@ class AuthSignin {
 
   AuthSignin(this._authRepositories);
 
-  Future<Either<ServerFailure, Unit>> call(UserEntities user) async {
+  Future<Either<ServerFailure, UserEntities>> call(UserEntities user) async {
     return await _authRepositories.singinAuth(user);
   }
 }

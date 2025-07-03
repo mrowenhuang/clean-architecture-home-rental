@@ -21,4 +21,6 @@ final class SinginAuthEvent extends AuthEvent {
   const SinginAuthEvent({required this.user});
 }
 
-final class SinginAuthGoogle extends AuthEvent {}
+final class SignoutAuthEvent extends AuthEvent {}
+
+
