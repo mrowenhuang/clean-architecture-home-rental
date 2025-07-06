@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Home Rental App',
         theme: AppTheme.appTheme(context),
-        home: SwitchPage(),
+        home: HomePage(),
       ),
     );
   }

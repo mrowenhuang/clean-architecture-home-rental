@@ -2,6 +2,7 @@ import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/a
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -117,11 +118,32 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(SignoutAuthEvent());
-                },
-                child: Text("log out"),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     context.read<AuthBloc>().add(SignoutAuthEvent());
+              //   },
+              //   child: Text("log out"),
+              // ),
+              Expanded(
+                child: GridView.custom(
+                  gridDelegate: SliverQuiltedGridDelegate(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1,
+                    repeatPattern: QuiltedGridRepeatPattern.inverted,
+                    pattern: [
+                      QuiltedGridTile(3, 1),
+                      QuiltedGridTile(1, 2),
+                      QuiltedGridTile(1, 2),
+                    ],
+                  ),
+                  childrenDelegate: SliverChildBuilderDelegate((
+                    context,
+                    index,
+                  ) {
+                    return Container(height: 400, color: Colors.blue);
+                  }),
+                ),
               ),
             ],
           ),
