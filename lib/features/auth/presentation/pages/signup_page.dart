@@ -1,8 +1,10 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:clean_architecture_rental_room/core/navigation/app_navigation.dart';
 import 'package:clean_architecture_rental_room/features/auth/domain/entities/user_entities.dart';
-import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/register_bloc/register_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/login_page.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/pages/switch_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +22,10 @@ class SignupPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: BlocListener<AuthBloc, AuthState>(
+      body: BlocListener<RegisterBloc, RegisterState>(
+        bloc: context.read<RegisterBloc>(),
         listener: (context, state) {
+          print(state);
           if (state is AuthSingupFailedState) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
@@ -38,6 +42,12 @@ class SignupPage extends StatelessWidget {
                   ),
                 ),
               );
+          } else if (state is AuthSignupSuccessState) {
+            context.read<AuthBloc>().add(InitialAuthEvent());
+            AppNavigation.pushRemoveNavigationUntil(
+              context,
+              const SwitchPage(),
+            );
           }
         },
         child: SingleChildScrollView(
@@ -168,7 +178,7 @@ class SignupPage extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(
+                                context.read<RegisterBloc>().add(
                                   SignupAuthEvent(
                                     user: UserEntities(
                                       email: emailC.text.trim(),

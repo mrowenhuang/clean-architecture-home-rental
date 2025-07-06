@@ -9,7 +9,9 @@ import 'package:clean_architecture_rental_room/features/auth/domain/usecases/aut
 
 import 'package:clean_architecture_rental_room/features/auth/domain/usecases/auth_signin.dart';
 import 'package:clean_architecture_rental_room/features/auth/domain/usecases/auth_signup.dart';
-import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/register_bloc/register_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
@@ -28,7 +30,9 @@ Future initializeDependencies() async {
   sl.registerLazySingleton(() => FirebaseFirestore.instance);
 
   // ~ Bloc & Cubit
-  sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => AuthBloc(sl(), sl()));
+  sl.registerFactory(() => LoginBloc(sl()));
+  sl.registerFactory(() => RegisterBloc(sl()));
 
   // ~ Repository
   sl.registerLazySingleton<AuthRepositories>(

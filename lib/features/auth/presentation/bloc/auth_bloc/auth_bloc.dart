@@ -14,38 +14,12 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthSignup _authSignup;
-  final AuthSignin _authSignin;
   final AutoSigninAuth _autoSignin;
   final AuthSignout _authSignout;
 
-  AuthBloc(
-    this._authSignup,
-    this._authSignin,
-    this._autoSignin,
-    this._authSignout,
-  ) : super(AuthInitial()) {
-    on<SignupAuthEvent>(signupAuthEvent);
+  AuthBloc(this._autoSignin, this._authSignout) : super(AuthInitial()) {
     on<InitialAuthEvent>(initialAuthEvent);
-    on<SinginAuthEvent>(singinAuthEvent);
     on<SignoutAuthEvent>(signoutAuthEvent);
-  }
-
-  FutureOr<void> signupAuthEvent(
-    SignupAuthEvent event,
-    Emitter<AuthState> emit,
-  ) async {
-    emit(AuthLoadingState());
-    final response = await _authSignup.call(event.user);
-
-    response.fold(
-      (failure) {
-        emit(AuthSingupFailedState(message: failure.message));
-      },
-      (response) {
-        AuthSuccessState(user: response);
-      },
-    );
   }
 
   FutureOr<void> initialAuthEvent(
@@ -57,32 +31,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     response.fold(
       (failure) {
+        print(failure.message);
         emit(AuthFailedState(message: failure.message));
       },
       (response) {
-        if (JwtDecoder.isExpired(response)) {
-          emit(AuthFailedState(message: "Exp Session"));
-        } else {
-          emit(AuthSuccessState());
-        }
-      },
-    );
-  }
-
-  FutureOr<void> singinAuthEvent(
-    SinginAuthEvent event,
-    Emitter<AuthState> emit,
-  ) async {
-    emit(AuthLoadingState());
-    final response = await _authSignin.call(event.user);
-
-    response.fold(
-      (failure) {
-        emit(AuthSinginFailedState(message: failure.message));
-        emit(AuthInitial());
-      },
-      (response) {
-        emit(AuthSuccessState());
+        print(response);
+        emit(AuthSuccessState(user: response));
       },
     );
   }

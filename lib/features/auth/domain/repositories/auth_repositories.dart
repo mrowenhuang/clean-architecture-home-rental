@@ -3,9 +3,8 @@ import 'package:clean_architecture_rental_room/features/auth/domain/entities/use
 import 'package:dartz/dartz.dart';
 
 abstract class AuthRepositories {
-  Future<Either<ServerFailure,UserEntities>> signupAuth(UserEntities user);
-  Future<Either<ServerFailure,UserEntities>> singinAuth(UserEntities user);
-  Future<Either<ServerFailure,String>> autoSigninAuth();
-  Future<Either<ServerFailure,Unit>> signoutAuth();
-  
+  Future<Either<ServerFailure, UserEntities>> signupAuth(UserEntities user);
+  Future<Either<ServerFailure, UserEntities>> singinAuth(UserEntities user);
+  Future<Either<ServerFailure, UserEntities>> autoSigninAuth();
+  Future<Either<ServerFailure, Unit>> signoutAuth();
 }

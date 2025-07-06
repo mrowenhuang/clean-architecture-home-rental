@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class AuthRemoteDatasource {
   Future<Either<ServerFailure, dynamic>> signupAuth(UserModels user);
   Future<Either<ServerFailure, dynamic>> singinAuth(UserModels user);
+  Future<Either<ServerFailure, dynamic>> getUser();
 }
 
 class ImplAuthRemoteDatasource extends AuthRemoteDatasource {
@@ -51,6 +52,24 @@ class ImplAuthRemoteDatasource extends AuthRemoteDatasource {
         return right(response.data);
       } else {
         return left(ServerFailure(message: "Internal Server Error"));
+      }
+    } catch (e) {
+      var err = (e as DioException).error as Map;
+
+      return left(ServerFailure(message: err['message']));
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, dynamic>> getUser() async {
+    try {
+      final response = await _dio.get(ApiNetwork.meApi);
+
+
+      if (response.statusCode == 200) {
+        return right(response.data);
+      } else {
+        return left(ServerFailure(message: 'Internal Server Failure'));
       }
     } catch (e) {
       var err = (e as DioException).error as Map;

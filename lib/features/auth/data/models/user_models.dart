@@ -7,7 +7,7 @@ class UserModels extends UserEntities {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      '_id': id,
       'username': username,
       'email': email,
       'password': password,
@@ -16,7 +16,7 @@ class UserModels extends UserEntities {
 
   factory UserModels.fromMap(Map<String, dynamic> map) {
     return UserModels(
-      id: map['id'] != null ? map['id'] as String : null,
+      id: map['_id'] != null ? map['_id'] as String : null,
       username: map['username'] != null ? map['username'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
       password: map['password'] != null ? map['password'] as String : null,

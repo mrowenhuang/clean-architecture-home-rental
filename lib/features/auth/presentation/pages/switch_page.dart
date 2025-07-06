@@ -1,4 +1,4 @@
-import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/login_page.dart';
 import 'package:clean_architecture_rental_room/features/rental/presentation/pages/home_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,12 +13,15 @@ class SwitchPage extends StatelessWidget {
     return BlocBuilder(
       bloc: context.read<AuthBloc>(),
       builder: (context, state) {
+        print(state);
         if (state is AuthSuccessState) {
           return HomePage();
-        } else if (state is AuthLoadingState) {
-          return Scaffold(body: Center(child: CupertinoActivityIndicator()));
-        } else {
+        } else if (state is AuthFailedState ||
+            state is AuthInitial ||
+            state is AuthSignoutSuccess) {
           return LoginPage();
+        } else {
+          return Scaffold(body: Center(child: CupertinoActivityIndicator()));
         }
       },
     );

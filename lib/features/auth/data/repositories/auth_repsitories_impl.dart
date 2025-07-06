@@ -5,6 +5,7 @@ import 'package:clean_architecture_rental_room/features/auth/data/models/user_mo
 import 'package:clean_architecture_rental_room/features/auth/domain/entities/user_entities.dart';
 import 'package:clean_architecture_rental_room/features/auth/domain/repositories/auth_repositories.dart';
 import 'package:dartz/dartz.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthRepsitoriesImpl implements AuthRepositories {
   final AuthRemoteDatasource _authRemoteDatasource;
@@ -61,12 +62,26 @@ class AuthRepsitoriesImpl implements AuthRepositories {
   }
 
   @override
-  Future<Either<ServerFailure, String>> autoSigninAuth() async {
+  Future<Either<ServerFailure, UserEntities>> autoSigninAuth() async {
     try {
       final response = await _authLoacalDatasource.getToken();
 
       if (response != null) {
-        return right(response);
+        if (!JwtDecoder.isExpired(response)) {
+          final userResponse = await _authRemoteDatasource.getUser();
+
+          return userResponse.fold(
+            (failure) {
+              return left(ServerFailure(message: failure.message));
+            },
+            (response) {
+              return right(UserModels.fromMap(response['user']));
+            },
+          );
+        } else {
+          await _authLoacalDatasource.deleteToken();
+          return left(ServerFailure(message: "Token Is Expired"));
+        }
       } else {
         return left(ServerFailure(message: 'No Token'));
       }
