@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.grey,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -75,7 +76,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text("Building", style: TextStyle(fontSize: 20)),
                       SizedBox(width: 5),
-                      Icon(Icons.home_filled),
+                      Image.asset("assets/icons/building.png"),
                       Spacer(),
                       ElevatedButton.icon(
                         onPressed: () {},
@@ -124,27 +125,31 @@ class HomePage extends StatelessWidget {
               //   },
               //   child: Text("log out"),
               // ),
-              Expanded(
-                child: GridView.custom(
-                  gridDelegate: SliverQuiltedGridDelegate(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 1,
-                    crossAxisSpacing: 1,
-                    repeatPattern: QuiltedGridRepeatPattern.inverted,
-                    pattern: [
-                      QuiltedGridTile(3, 1),
-                      QuiltedGridTile(1, 2),
-                      QuiltedGridTile(1, 2),
-                    ],
-                  ),
-                  childrenDelegate: SliverChildBuilderDelegate((
-                    context,
-                    index,
-                  ) {
-                    return Container(height: 400, color: Colors.blue);
-                  }),
-                ),
-              ),
+              SizedBox(height: 20),
+              // Expanded(
+              //   child: GridView.custom(
+              //     gridDelegate: SliverQuiltedGridDelegate(
+              //       crossAxisCount: 5,
+
+              //       mainAxisSpacing: 6,
+              //       crossAxisSpacing: 6,
+              //       repeatPattern: QuiltedGridRepeatPattern.inverted,
+              //       pattern: [
+              //         QuiltedGridTile(2, 2),
+              //         QuiltedGridTile(1, 3),
+              //         QuiltedGridTile(1, 3),
+              //         // QuiltedGridTile(1, 3),
+              //       ],
+              //     ),
+              //     childrenDelegate: SliverChildBuilderDelegate((
+              //       context,
+              //       index,
+              //     ) {
+              //       return Container(height: 400, color: Colors.blue);
+              //     }),
+              //   ),
+              // ),
+              Container(height: 250, color: Colors.amberAccent),
             ],
           ),
         ),
