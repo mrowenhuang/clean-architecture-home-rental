@@ -12,9 +12,8 @@ class AuthInitial extends AuthState {}
 final class AuthLoadingState extends AuthInitial {}
 
 final class AuthSuccessState extends AuthInitial {
-  final UserEntities user;
-
-  AuthSuccessState({required this.user});
+  final UserEntities? user;
+  AuthSuccessState({this.user});
 }
 
 final class AuthFailedState extends AuthInitial {}

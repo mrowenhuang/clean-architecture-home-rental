@@ -21,4 +21,12 @@ class AppNavigation {
       ),
     );
   }
+
+  static pushRemoveNavigationUntil(BuildContext context, Widget widget) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => widget),
+      (route) => false,
+    );
+  }
 }
