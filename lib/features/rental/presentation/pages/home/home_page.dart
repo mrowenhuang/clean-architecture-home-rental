@@ -128,27 +128,27 @@ class HomePage extends StatelessWidget {
                 //   },
                 //   child: Text("log out"),
                 // ),
-                Expanded(
-                  child: GridView.custom(
-                    gridDelegate: SliverQuiltedGridDelegate(
-                      crossAxisCount: 4,
-                      mainAxisSpacing: 1,
-                      crossAxisSpacing: 1,
-                      repeatPattern: QuiltedGridRepeatPattern.inverted,
-                      pattern: [
-                        QuiltedGridTile(3, 1),
-                        QuiltedGridTile(1, 2),
-                        QuiltedGridTile(1, 2),
-                      ],
-                    ),
-                    childrenDelegate: SliverChildBuilderDelegate((
-                      context,
-                      index,
-                    ) {
-                      return Container(height: 400, color: Colors.blue);
-                    }),
-                  ),
-                ),
+                // Expanded(
+                //   child: GridView.custom(
+                //     gridDelegate: SliverQuiltedGridDelegate(
+                //       crossAxisCount: 4,
+                //       mainAxisSpacing: 1,
+                //       crossAxisSpacing: 1,
+                //       repeatPattern: QuiltedGridRepeatPattern.inverted,
+                //       pattern: [
+                //         QuiltedGridTile(2, 2),
+                //         QuiltedGridTile(1, 2),
+                //         QuiltedGridTile(1, 2),
+                //       ],
+                //     ),
+                //     childrenDelegate: SliverChildBuilderDelegate((
+                //       context,
+                //       index,
+                //     ) {
+                //       return Container(height: 400, color: Colors.blue);
+                //     }),
+                //   ),
+                // ),
               ],
             ),
           ),

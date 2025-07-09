@@ -4,7 +4,8 @@ import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/l
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/register_bloc/register_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/signup_page.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/switch_page.dart';
-import 'package:clean_architecture_rental_room/features/rental/presentation/pages/home_page.dart';
+import 'package:clean_architecture_rental_room/features/rental/presentation/pages/home/home_page.dart';
+import 'package:clean_architecture_rental_room/features/rental/presentation/pages/index_route_page.dart';
 import 'package:clean_architecture_rental_room/firebase_options.dart';
 import 'package:clean_architecture_rental_room/injection.dart';
 import 'package:clean_architecture_rental_room/test_page.dart';
