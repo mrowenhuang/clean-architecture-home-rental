@@ -1,5 +1,4 @@
-import 'package:clean_architecture_rental_room/core/navigation/app_navigation.dart';
-import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/login_page.dart';
 import 'package:clean_architecture_rental_room/features/rental/presentation/pages/home_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,18 +10,19 @@ class SwitchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
+    return BlocBuilder(
       bloc: context.read<AuthBloc>(),
-      listener: (context, state) {
+      builder: (context, state) {
         print(state);
         if (state is AuthSuccessState) {
-          AppNavigation.pushRemoveNavigationUntil(context, HomePage());
-        } else if (state is AuthFailedState) {
-          AppNavigation.pushNavigation(context, LoginPage());
+          return HomePage();
+        } else if (state is AuthFailedState ||
+            state is AuthInitial ||
+            state is AuthSignoutSuccess) {
+          return LoginPage();
+        } else {
+          return Scaffold(body: Center(child: CupertinoActivityIndicator()));
         }
-      },
-      builder: (context, state) {
-        return Scaffold(body: Center(child: CupertinoActivityIndicator()));
       },
     );
   }

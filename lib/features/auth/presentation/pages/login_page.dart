@@ -1,7 +1,8 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:clean_architecture_rental_room/core/navigation/app_navigation.dart';
 import 'package:clean_architecture_rental_room/features/auth/domain/entities/user_entities.dart';
-import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,8 +19,8 @@ class LoginPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: BlocListener<AuthBloc, AuthState>(
-        bloc: context.read<AuthBloc>(),
+      body: BlocListener<LoginBloc, LoginState>(
+        bloc: context.read<LoginBloc>(),
         listener: (context, state) {
           if (state is AuthSinginFailedState) {
             ScaffoldMessenger.of(context)
@@ -39,6 +40,8 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               );
+          } else if (state is AuthSigninSuccessState) {
+            context.read<AuthBloc>().add(InitialAuthEvent());
           }
         },
         child: SingleChildScrollView(
@@ -149,7 +152,7 @@ class LoginPage extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(
+                                context.read<LoginBloc>().add(
                                   SinginAuthEvent(
                                     user: UserEntities(
                                       email: emailC.text.trim(),
@@ -168,24 +171,24 @@ class LoginPage extends StatelessWidget {
                             ),
                             child: Text("Login"),
                           ),
-                          SizedBox(height: 10),
-                          ElevatedButton.icon(
-                            label: Text("Google Login"),
-                            icon: Image.asset(
-                              'assets/logo/google.png',
-                              height: 25,
-                            ),
-                            onPressed: () {
-                              context.read<AuthBloc>().add(SinginAuthGoogle());
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              fixedSize: Size(size.width, 50),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                          ),
+                          // SizedBox(height: 10),
+                          // ElevatedButton.icon(
+                          //   label: Text("Google Login"),
+                          //   icon: Image.asset(
+                          //     'assets/logo/google.png',
+                          //     height: 25,
+                          //   ),
+                          //   onPressed: () {
+                          //     context.read<AuthBloc>().add(SinginAuthGoogle());
+                          //   },
+                          //   style: ElevatedButton.styleFrom(
+                          //     backgroundColor: Colors.black,
+                          //     fixedSize: Size(size.width, 50),
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(15),
+                          //     ),
+                          //   ),
+                          // ),
                           Spacer(),
                         ],
                       ),

@@ -1,8 +1,11 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:clean_architecture_rental_room/core/navigation/app_navigation.dart';
 import 'package:clean_architecture_rental_room/features/auth/domain/entities/user_entities.dart';
-import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/register_bloc/register_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/pages/login_page.dart';
+import 'package:clean_architecture_rental_room/features/auth/presentation/pages/switch_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,8 +22,10 @@ class SignupPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: BlocListener<AuthBloc, AuthState>(
+      body: BlocListener<RegisterBloc, RegisterState>(
+        bloc: context.read<RegisterBloc>(),
         listener: (context, state) {
+          print(state);
           if (state is AuthSingupFailedState) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
@@ -32,13 +37,17 @@ class SignupPage extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
                     title: 'Singup Failed',
-                    message: state.message.substring(
-                      state.message.indexOf(']') + 2,
-                    ),
+                    message: state.message,
                     contentType: ContentType.failure,
                   ),
                 ),
               );
+          } else if (state is AuthSignupSuccessState) {
+            context.read<AuthBloc>().add(InitialAuthEvent());
+            AppNavigation.pushRemoveNavigationUntil(
+              context,
+              const SwitchPage(),
+            );
           }
         },
         child: SingleChildScrollView(
@@ -77,7 +86,7 @@ class SignupPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             child: TextFormField(
                               validator: (value) {
-                                if (value!.isNotEmpty && value.length <= 8) {
+                                if (value!.isNotEmpty && value.length <= 3) {
                                   return 'Name Need 8 Character';
                                 } else if (value.isEmpty) {
                                   return 'Please Fill The Name';
@@ -169,7 +178,7 @@ class SignupPage extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(
+                                context.read<RegisterBloc>().add(
                                   SignupAuthEvent(
                                     user: UserEntities(
                                       email: emailC.text.trim(),

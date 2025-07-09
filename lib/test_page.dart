@@ -135,7 +135,7 @@ class TestPage extends StatelessWidget {
                             height: 25,
                           ),
                           onPressed: () async {
-                            await getBook();
+                            // await getBook();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
@@ -181,24 +181,24 @@ Future<void> login(String email, String password) async {
   }
 }
 
-Future<void> getBook() async {
-  final Dio dio = Conn.dio;
-  final GetStorage storage = GetStorage();
+// Future<void> getBook() async {
+//   final Dio dio = Conn.dio;
+//   final GetStorage storage = GetStorage();
 
-  try {
-    var tok = storage.read("access_token");
+//   try {
+//     var tok = storage.read("access_token");
 
-    print(tok);
+//     print(tok);
 
-    final response = await dio.get(ApiNetwork.bookApi);
+//     final response = await dio.get(ApiNetwork.bookApi);
 
-    if (response.statusCode == 200) {
-      print(response.data);
-    }
-  } catch (e) {
-    if (e is DioException) {
-      var error = e.error as Map;
-      print(error['message']);
-    }
-  }
-}
+//     if (response.statusCode == 200) {
+//       print(response.data);
+//     }
+//   } catch (e) {
+//     if (e is DioException) {
+//       var error = e.error as Map;
+//       print(error['message']);
+//     }
+//   }
+// }
