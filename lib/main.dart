@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Home Rental App',
         theme: AppTheme.appTheme(context),
-        home: HomePage(),
+        home: IndexRoutePage(),
       ),
     );
   }

@@ -1,34 +1,58 @@
 import 'package:clean_architecture_rental_room/features/rental/presentation/pages/home/home_page.dart';
 import 'package:clean_architecture_rental_room/features/rental/presentation/pages/profile/profile_page.dart';
 import 'package:clean_architecture_rental_room/features/rental/presentation/pages/room/room_page.dart';
-import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
+import 'package:clean_architecture_rental_room/features/rental/presentation/pages/search/search_page.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
 
-class IndexRoutePage extends StatelessWidget {
-  IndexRoutePage({super.key});
+class IndexRoutePage extends StatefulWidget {
+  const IndexRoutePage({super.key});
 
-  final page = [const HomePage(), const RoomPage(), const ProfilePage()];
+  @override
+  State<IndexRoutePage> createState() => _IndexRoutePageState();
+}
+
+class _IndexRoutePageState extends State<IndexRoutePage> {
+  final page = [
+    const HomePage(),
+    const RoomPage(),
+    const SearchPage(),
+    const ProfilePage(),
+  ];
+
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: page[1],
+    final size = MediaQuery.of(context).size;
 
-      extendBody: true,
-      bottomNavigationBar: CrystalNavigationBar(
-        currentIndex: 0,
-        onTap: (p0) {},
-        backgroundColor: Colors.black26,
-        marginR: EdgeInsets.symmetric(horizontal: 80, vertical: 20),
-        paddingR: EdgeInsets.symmetric(horizontal: 20),
-        items: [
-          CrystalNavigationBarItem(
-            icon: Icons.home,
-            selectedColor: Colors.black,
+    return Scaffold(
+      body: Stack(
+        children: [
+          page[0],
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 60,
+              width: size.width - 130,
+              decoration: BoxDecoration(
+                color: Colors.black26,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children:
+                    page
+                        .map(
+                          (e) => IconButton(
+                            icon: Icon(Icons.abc),
+                            onPressed: () {},
+                          ),
+                        )
+                        .toList(),
+              ),
+            ),
           ),
-          CrystalNavigationBarItem(icon: Icons.home),
-          CrystalNavigationBarItem(icon: Icons.home),
-          CrystalNavigationBarItem(icon: Icons.home),
         ],
       ),
     );
