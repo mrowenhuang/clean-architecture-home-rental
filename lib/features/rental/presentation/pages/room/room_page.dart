@@ -13,7 +13,16 @@ class RoomPage extends StatelessWidget {
           SizedBox(height: 20),
           Container(height: 200, color: Colors.green),
           SizedBox(height: 20),
-          Container(height: 200, color: Colors.amber),
+          Container(height: 100, color: Colors.green),
+
+          // IconButton(
+          //   style: IconButton.styleFrom(
+          //     backgroundColor: Colors.red,
+          //     fixedSize: Size(50, 50),
+          //   ),
+          //   onPressed: () {},
+          //   icon: Icon(Icons.abc),
+          // ),
         ],
       ),
     );
