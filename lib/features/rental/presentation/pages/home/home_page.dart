@@ -116,6 +116,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 20)),
+
           SliverToBoxAdapter(
             child: SizedBox(
               height: 400,
@@ -134,8 +135,31 @@ class HomePage extends StatelessWidget {
                 ),
 
                 childrenDelegate: SliverChildBuilderDelegate((context, index) {
-                  return Container(color: Colors.blue);
-                }, childCount: 10),
+                  return Stack(
+                    children: [
+                      Container(color: Colors.blue),
+
+                      Container(color: Colors.black26),
+                      Positioned(
+                        bottom: 10,
+                        right: 20,
+                        child: Container(
+                          height: 30,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.black26,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Hello world",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }, childCount: 9),
               ),
             ),
           ),

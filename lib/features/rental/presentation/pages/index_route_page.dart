@@ -45,7 +45,7 @@ class _IndexRoutePageState extends State<IndexRoutePage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ClipRRect(
-                  borderRadius: BorderRadiusGeometry.circular(50),
+                  borderRadius: BorderRadius.circular(50),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
 
