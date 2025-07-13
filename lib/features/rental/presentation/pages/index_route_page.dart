@@ -38,7 +38,7 @@ class _IndexRoutePageState extends State<IndexRoutePage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(bottom: 20),
           child: Stack(
             children: [
               IndexedStack(index: index, children: page),
@@ -48,7 +48,6 @@ class _IndexRoutePageState extends State<IndexRoutePage> {
                   borderRadius: BorderRadius.circular(50),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-
                     child: Container(
                       height: 60,
                       width: size.width - 130,

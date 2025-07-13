@@ -12,6 +12,7 @@ import 'package:clean_architecture_rental_room/features/auth/domain/usecases/aut
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/register_bloc/register_bloc.dart';
+import 'package:clean_architecture_rental_room/features/rental/presentation/bloc/cubit/page_controller_cubit.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -29,6 +30,7 @@ Future initializeDependencies() async {
   sl.registerFactory(() => AuthBloc(sl(), sl()));
   sl.registerFactory(() => LoginBloc(sl()));
   sl.registerFactory(() => RegisterBloc(sl()));
+  sl.registerFactory(() => PageControllerCubit());
 
   // ~ Repository
   sl.registerLazySingleton<AuthRepositories>(

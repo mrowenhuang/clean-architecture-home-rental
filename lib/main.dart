@@ -2,6 +2,7 @@ import 'package:clean_architecture_rental_room/core/theme/app_theme.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/register_bloc/register_bloc.dart';
+import 'package:clean_architecture_rental_room/features/rental/presentation/bloc/cubit/page_controller_cubit.dart';
 
 import 'package:clean_architecture_rental_room/features/rental/presentation/pages/index_route_page.dart';
 import 'package:clean_architecture_rental_room/injection.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => sl<LoginBloc>()),
         BlocProvider(create: (context) => sl<RegisterBloc>()),
+        BlocProvider(create: (context) => sl<PageControllerCubit>()..savePage(0)),
       ],
       child: MaterialApp(
         title: 'Home Rental App',

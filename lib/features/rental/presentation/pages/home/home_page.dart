@@ -1,4 +1,6 @@
+import 'package:clean_architecture_rental_room/features/rental/presentation/bloc/cubit/page_controller_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -8,8 +10,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    // PageController controller = PageController(viewportFraction: .55);
     return Scaffold(
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Row(
@@ -92,68 +96,120 @@ class HomePage extends StatelessWidget {
           SliverToBoxAdapter(child: SizedBox(height: 20)),
           SliverToBoxAdapter(
             child: SizedBox(
-              height: size.height * .4,
+              height: size.height * .45,
 
-              // child: ListView.builder(
+              // child: PageView.builder(
               //   itemCount: 5,
-
               //   scrollDirection: Axis.horizontal,
+              //   controller: controller,
               //   itemBuilder: (context, index) {
-              // return Padding(
-              //   padding: const EdgeInsets.only(right: 10),
-              //   child: Container(
-              //     width: 250,
-              //     padding: EdgeInsets.all(20),
-              //     decoration: BoxDecoration(
-              //       color: Colors.red,
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     alignment: Alignment.bottomCenter,
-              //     child: Container(
-              //       width: 200,
-              //       height: 70,
-              //       decoration: BoxDecoration(
-              //         color: Colors.amber,
-              //         borderRadius: BorderRadius.circular(20),
+              //     return Transform.scale(
+              //       scale: 1,
+              //       child: Padding(
+              //         padding: const EdgeInsets.only(right: 10),
+              //         child: Container(
+              //           width: 250,
+              //           height: 100,
+              //           padding: EdgeInsets.all(20),
+              //           decoration: BoxDecoration(
+              //             color: Colors.red,
+              //             borderRadius: BorderRadius.circular(10),
+              //           ),
+              //           alignment: Alignment.bottomCenter,
+              //           child: Container(
+              //             width: 200,
+              //             height: 70,
+              //             decoration: BoxDecoration(
+              //               color: Colors.amber,
+              //               borderRadius: BorderRadius.circular(20),
+              //             ),
+              //           ),
+              //         ),
               //       ),
-              //     ),
-              //   ),
               //     );
               //   },
               // ),
               child: CarouselSlider.builder(
                 itemCount: 5,
-
                 itemBuilder: (context, index, realIndex) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: Container(
-                      width: 250,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        width: 200,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(20),
+                    child:
+                        BlocBuilder<PageControllerCubit, PageControllerState>(
+                          bloc: context.read<PageControllerCubit>(),
+                          builder: (context, state) {
+                            final isSelected =
+                                state is PageChanged && state.index == index;
+                            return AnimatedContainer(
+                              duration: Duration(milliseconds: 500),
+                              margin: EdgeInsets.only(
+                                bottom: isSelected ? 30 : 0,
+                                top: isSelected ? 0 : 30,
+                              ),
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(30),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black45,
+                                    spreadRadius: -20,
+                                    offset: Offset(0, isSelected ? 25 : 0),
+                                    blurRadius: 20,
+                                  ),
+                                ],
+                              ),
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: 250,
+                                height: 80,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Icon(Icons.location_on),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Gedung"),
+                                          Row(
+                                            children: [
+                                              Text("Ruangan"),
+                                              Spacer(),
+                                              Icon(Icons.male_rounded),
+                                              Icon(Icons.info_outline_rounded),
+                                            ],
+                                          ),
+                                          Text("Jalan"),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ),
-                    ),
                   );
                 },
                 options: CarouselOptions(
-                  viewportFraction: .6,
+                  onPageChanged: (index, reason) {
+                    context.read<PageControllerCubit>().savePage(index);
+                  },
+                  viewportFraction: .75,
                   initialPage: 0,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 5),
                   scrollDirection: Axis.horizontal,
                   animateToClosest: true,
                   disableCenter: true,
                   enlargeCenterPage: true,
-                  
                 ),
               ),
             ),
@@ -195,7 +251,7 @@ class HomePage extends StatelessWidget {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            "Hello world",
+                            index.toString(),
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
