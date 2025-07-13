@@ -1,10 +1,9 @@
 import 'package:clean_architecture_rental_room/core/failure/failures.dart';
 import 'package:clean_architecture_rental_room/core/network/api_network.dart';
 import 'package:clean_architecture_rental_room/features/auth/data/models/user_models.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 abstract class AuthRemoteDatasource {
   Future<Either<ServerFailure, dynamic>> signupAuth(UserModels user);

@@ -1,8 +1,6 @@
-import 'package:clean_architecture_rental_room/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -96,22 +94,67 @@ class HomePage extends StatelessWidget {
             child: SizedBox(
               height: size.height * .4,
 
-              child: ListView.builder(
+              // child: ListView.builder(
+              //   itemCount: 5,
+
+              //   scrollDirection: Axis.horizontal,
+              //   itemBuilder: (context, index) {
+              // return Padding(
+              //   padding: const EdgeInsets.only(right: 10),
+              //   child: Container(
+              //     width: 250,
+              //     padding: EdgeInsets.all(20),
+              //     decoration: BoxDecoration(
+              //       color: Colors.red,
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     alignment: Alignment.bottomCenter,
+              //     child: Container(
+              //       width: 200,
+              //       height: 70,
+              //       decoration: BoxDecoration(
+              //         color: Colors.amber,
+              //         borderRadius: BorderRadius.circular(20),
+              //       ),
+              //     ),
+              //   ),
+              //     );
+              //   },
+              // ),
+              child: CarouselSlider.builder(
                 itemCount: 5,
 
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
+                itemBuilder: (context, index, realIndex) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: Container(
                       width: 250,
+                      padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(10),
                       ),
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: 200,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
                     ),
                   );
                 },
+                options: CarouselOptions(
+                  viewportFraction: .6,
+                  initialPage: 0,
+                  scrollDirection: Axis.horizontal,
+                  animateToClosest: true,
+                  disableCenter: true,
+                  enlargeCenterPage: true,
+                  
+                ),
               ),
             ),
           ),
